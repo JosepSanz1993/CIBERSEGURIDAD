@@ -1,0 +1,14 @@
+# OOPS_5 — CROWN JEWEL · NOMÉS xarxa interna (accés final via moviment lateral)
+# Requereix les xarxes externes: executa ../setup-networks.sh un cop.
+services:
+  oops5:
+    build: .
+    container_name: oops5
+    hostname: oops5
+    networks:
+      oops_internal:
+        ipv4_address: 10.10.20.15
+
+networks:
+  oops_internal:
+    external: true

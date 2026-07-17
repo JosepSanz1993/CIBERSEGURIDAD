@@ -1,0 +1,24 @@
+# OOPS_4 — DNS/DHCP · PASSAREL·LA a les DUES xarxes (dual-homed)
+# Requereix les xarxes externes: executa ../setup-networks.sh un cop.
+services:
+  oops4:
+    build: .
+    container_name: oops4
+    hostname: oops4
+    cap_add:
+      - NET_ADMIN     # necessari per BIND/dnsmasq i per fer de pont
+    networks:
+      oops_dmz:
+        ipv4_address: 10.10.10.14
+      oops_internal:
+        ipv4_address: 10.10.20.14
+    ports:
+      - "5353:53/udp"
+      - "5353:53/tcp"   # per provar AXFR còmodament des del host
+      - "2204:22"
+
+networks:
+  oops_dmz:
+    external: true
+  oops_internal:
+    external: true

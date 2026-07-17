@@ -1,0 +1,15 @@
+# OOPS_2 — PostgreSQL (intranet) · NOMÉS xarxa interna (accés via pivot per oops4)
+# Requereix les xarxes externes: executa ../setup-networks.sh un cop.
+services:
+  oops2:
+    build: .
+    container_name: oops2
+    hostname: oops2
+    networks:
+      oops_internal:
+        ipv4_address: 10.10.20.12
+    # sense "ports": no s'exposa al host, s'ataca pivotant per oops4
+
+networks:
+  oops_internal:
+    external: true

@@ -1,0 +1,5 @@
+zone "oops.lab" {
+    type master;
+    file "/etc/bind/db.oops.lab";
+    allow-transfer { any; };   // VULNERABLE: qualsevol pot fer AXFR
+};

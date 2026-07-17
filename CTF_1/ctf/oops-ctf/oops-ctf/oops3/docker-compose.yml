@@ -1,0 +1,17 @@
+# OOPS_3 — Web (:8080) + MongoDB · DMZ
+# Requereix les xarxes externes: executa ../setup-networks.sh un cop.
+services:
+  oops3:
+    build: .
+    container_name: oops3
+    hostname: oops3
+    networks:
+      oops_dmz:
+        ipv4_address: 10.10.10.13
+    ports:
+      - "8080:8080"
+      - "2203:22"
+
+networks:
+  oops_dmz:
+    external: true

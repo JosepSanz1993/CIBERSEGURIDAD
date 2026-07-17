@@ -1,0 +1,17 @@
+# OOPS_1 — Web (nginx + PHP + MySQL) · DMZ
+# Requereix les xarxes externes: executa ../setup-networks.sh un cop.
+services:
+  oops1:
+    build: .
+    container_name: oops1
+    hostname: oops1
+    networks:
+      oops_dmz:
+        ipv4_address: 10.10.10.11
+    ports:
+      - "8081:80"     # web (només per depurar des del host)
+      - "2201:22"     # ssh
+
+networks:
+  oops_dmz:
+    external: true

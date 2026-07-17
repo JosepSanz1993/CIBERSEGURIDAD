@@ -1,0 +1,19 @@
+$TTL 604800
+@   IN  SOA oops4.oops.lab. admin.oops.lab. (
+        2024010101 ; Serial
+        604800 86400 2419200 604800 )
+@       IN  NS  oops4.oops.lab.
+
+; --- Hosts de la DMZ ---
+oops1   IN  A   10.10.10.11
+oops3   IN  A   10.10.10.13
+oops4   IN  A   10.10.10.14
+
+; --- Hosts INTERNS (es filtren via AXFR!) ---
+oops2       IN  A   10.10.20.12
+oops5       IN  A   10.10.20.15
+gw-internal IN  A   10.10.20.14
+
+; Registre TXT amb pista (mala pràctica: secrets al DNS)
+_secret     IN  TXT "oops5 es la crown jewel; entra-hi via pivot per oops4"
+_hint       IN  TXT "credencial d'oops5 a /opt/net/inventory.txt (cal foothold ssh a oops4)"
