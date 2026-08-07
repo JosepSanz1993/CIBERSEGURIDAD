@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="630" viewBox="0 0 720 630" font-family="Arial, Helvetica, sans-serif">
+  <title>Estructura de recursos SMB — servidor interno Rocky (Nexora Solutions)</title>
+
+  <text x="40" y="22" font-size="14" font-weight="bold" fill="#2C2C2A">Estructura de recursos SMB · servidor interno (Rocky Linux)</text>
+
+  <!-- Raíz -->
+  <rect x="40" y="36" width="384" height="48" rx="8" fill="#ECEBE6" stroke="#8A897F" stroke-width="1.5"/>
+  <path d="M0,2 h6 l2,2.5 h9 v9 h-17 z" transform="translate(58,52)" fill="#8A897F"/>
+  <text x="86" y="57" font-size="14" font-weight="bold" fill="#3A3A36">/srv/samba/</text>
+  <text x="86" y="74" font-size="11" fill="#6A6A64">Servidor de archivos · Nexora Solutions</text>
+
+  <!-- Tronco del árbol -->
+  <line x1="70" y1="84" x2="70" y2="493" stroke="#B0AFA8" stroke-width="1.4"/>
+  <line x1="70" y1="133" x2="100" y2="133" stroke="#B0AFA8" stroke-width="1.4"/>
+  <line x1="70" y1="205" x2="100" y2="205" stroke="#B0AFA8" stroke-width="1.4"/>
+  <line x1="70" y1="277" x2="100" y2="277" stroke="#B0AFA8" stroke-width="1.4"/>
+  <line x1="70" y1="349" x2="100" y2="349" stroke="#B0AFA8" stroke-width="1.4"/>
+  <line x1="70" y1="421" x2="100" y2="421" stroke="#B0AFA8" stroke-width="1.4"/>
+  <line x1="70" y1="493" x2="100" y2="493" stroke="#B0AFA8" stroke-width="1.4"/>
+
+  <!-- comun -->
+  <rect x="100" y="104" width="520" height="58" rx="8" fill="#EAF2EC" stroke="#5E8A72" stroke-width="1.2"/>
+  <path d="M0,2 h6 l2,2.5 h9 v9 h-17 z" transform="translate(116,124)" fill="#5E8A72"/>
+  <text x="140" y="128" font-size="14" font-weight="bold" fill="#3B5A48">comun/</text>
+  <text x="140" y="147" font-size="11" fill="#5E7A68">invitado · solo lectura · baja sensibilidad</text>
+  <text x="606" y="126" font-size="11" fill="#6A6A64" text-anchor="end">Baja</text>
+  <text x="606" y="147" font-size="12" font-weight="bold" fill="#3B5A48" text-anchor="end">Aceptable</text>
+
+  <!-- rrhh -->
+  <rect x="100" y="176" width="520" height="58" rx="8" fill="#FBF3E2" stroke="#C98A1E" stroke-width="1.2"/>
+  <path d="M0,2 h6 l2,2.5 h9 v9 h-17 z" transform="translate(116,196)" fill="#C98A1E"/>
+  <text x="140" y="200" font-size="14" font-weight="bold" fill="#7A5310">rrhh/</text>
+  <text x="140" y="219" font-size="11" fill="#9A6A16">invitado LEE · nóminas, DNI, contratos</text>
+  <text x="606" y="198" font-size="11" fill="#6A6A64" text-anchor="end">Datos personales</text>
+  <text x="606" y="219" font-size="12" font-weight="bold" fill="#B4791A" text-anchor="end">Hallazgo (RGPD)</text>
+
+  <!-- contabilidad -->
+  <rect x="100" y="248" width="520" height="58" rx="8" fill="#FBF3E2" stroke="#C98A1E" stroke-width="1.2"/>
+  <path d="M0,2 h6 l2,2.5 h9 v9 h-17 z" transform="translate(116,268)" fill="#C98A1E"/>
+  <text x="140" y="272" font-size="14" font-weight="bold" fill="#7A5310">contabilidad/</text>
+  <text x="140" y="291" font-size="11" fill="#9A6A16">invitado LEE · facturas, cuentas bancarias</text>
+  <text x="606" y="270" font-size="11" fill="#6A6A64" text-anchor="end">Financiera</text>
+  <text x="606" y="291" font-size="12" font-weight="bold" fill="#B4791A" text-anchor="end">Hallazgo</text>
+
+  <!-- sistemas -->
+  <rect x="100" y="320" width="520" height="58" rx="8" fill="#FBEAE7" stroke="#C0392B" stroke-width="1.5"/>
+  <path d="M0,2 h6 l2,2.5 h9 v9 h-17 z" transform="translate(116,340)" fill="#C0392B"/>
+  <text x="140" y="344" font-size="14" font-weight="bold" fill="#7A1F14">sistemas/</text>
+  <text x="140" y="363" font-size="11" fill="#A5372A">invitado LEE + ESCRIBE · credenciales y clave privada</text>
+  <text x="606" y="342" font-size="11" fill="#6A6A64" text-anchor="end">Crítica (IT)</text>
+  <text x="606" y="363" font-size="12" font-weight="bold" fill="#C0392B" text-anchor="end">Hallazgo crítico</text>
+
+  <!-- direccion -->
+  <rect x="100" y="392" width="520" height="58" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.5"/>
+  <path d="M0,2 h6 l2,2.5 h9 v9 h-17 z" transform="translate(116,412)" fill="#0F6E56"/>
+  <text x="140" y="416" font-size="14" font-weight="bold" fill="#085041">direccion/</text>
+  <text x="140" y="435" font-size="11" fill="#0F6E56">restringido a grupo @direccion · solo lectura</text>
+  <text x="606" y="414" font-size="11" fill="#6A6A64" text-anchor="end">Alta</text>
+  <text x="606" y="435" font-size="12" font-weight="bold" fill="#0F6E56" text-anchor="end">Correcto (referencia)</text>
+
+  <!-- intercambio -->
+  <rect x="100" y="464" width="520" height="58" rx="8" fill="#FBF3E2" stroke="#C98A1E" stroke-width="1.2"/>
+  <path d="M0,2 h6 l2,2.5 h9 v9 h-17 z" transform="translate(116,484)" fill="#C98A1E"/>
+  <text x="140" y="488" font-size="14" font-weight="bold" fill="#7A5310">intercambio/</text>
+  <text x="140" y="507" font-size="11" fill="#9A6A16">escritura anónima · buzón abierto</text>
+  <text x="606" y="486" font-size="11" fill="#6A6A64" text-anchor="end">Baja</text>
+  <text x="606" y="507" font-size="12" font-weight="bold" fill="#B4791A" text-anchor="end">Hallazgo</text>
+
+  <!-- Leyenda -->
+  <rect x="40" y="560" width="14" height="14" rx="3" fill="#EAF2EC" stroke="#5E8A72"/>
+  <text x="60" y="571" font-size="11" fill="#4A4A46">Aceptable</text>
+  <rect x="160" y="560" width="14" height="14" rx="3" fill="#FBF3E2" stroke="#C98A1E"/>
+  <text x="180" y="571" font-size="11" fill="#4A4A46">Hallazgo</text>
+  <rect x="270" y="560" width="14" height="14" rx="3" fill="#FBEAE7" stroke="#C0392B"/>
+  <text x="290" y="571" font-size="11" fill="#4A4A46">Hallazgo crítico</text>
+  <rect x="420" y="560" width="14" height="14" rx="3" fill="#E1F5EE" stroke="#0F6E56"/>
+  <text x="440" y="571" font-size="11" fill="#4A4A46">Correcto (referencia)</text>
+</svg>
