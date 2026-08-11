@@ -1,0 +1,68 @@
+dn: dc=nexora,dc=lab
+objectClass: dcObject
+objectClass: organization
+o: Nexora Solutions
+dc: nexora
+
+dn: ou=rrhh,dc=nexora,dc=lab
+objectClass: organizationalUnit
+ou: rrhh
+
+dn: ou=contabilidad,dc=nexora,dc=lab
+objectClass: organizationalUnit
+ou: contabilidad
+
+dn: ou=sistemas,dc=nexora,dc=lab
+objectClass: organizationalUnit
+ou: sistemas
+
+dn: ou=direccion,dc=nexora,dc=lab
+objectClass: organizationalUnit
+ou: direccion
+
+dn: ou=grupos,dc=nexora,dc=lab
+objectClass: organizationalUnit
+ou: grupos
+
+dn: uid=jroca,ou=sistemas,dc=nexora,dc=lab
+objectClass: inetOrgPerson
+cn: Josep Roca
+sn: Roca
+givenName: Josep
+uid: jroca
+title: Administrador de sistemas
+mail: jroca@nexora.lab
+telephoneNumber: +34 955 000 001
+userPassword: Verano2024!
+
+dn: uid=mvidal,ou=rrhh,dc=nexora,dc=lab
+objectClass: inetOrgPerson
+cn: Marta Vidal
+sn: Vidal
+givenName: Marta
+uid: mvidal
+title: Directora de RRHH
+mail: mvidal@nexora.lab
+telephoneNumber: +34 955 000 002
+userPassword: Rrhh2024*
+
+dn: uid=lpena,ou=contabilidad,dc=nexora,dc=lab
+objectClass: inetOrgPerson
+cn: Luis Pena
+sn: Pena
+givenName: Luis
+uid: lpena
+title: Contable
+mail: lpena@nexora.lab
+telephoneNumber: +34 955 000 003
+userPassword: Conta2024*
+
+dn: cn=direccion,ou=grupos,dc=nexora,dc=lab
+objectClass: groupOfNames
+cn: direccion
+member: uid=mvidal,ou=rrhh,dc=nexora,dc=lab
+
+dn: cn=sistemas,ou=grupos,dc=nexora,dc=lab
+objectClass: groupOfNames
+cn: sistemas
+member: uid=jroca,ou=sistemas,dc=nexora,dc=lab
