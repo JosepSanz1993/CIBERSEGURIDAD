@@ -1,0 +1,40 @@
+FROM fedora:41
+
+RUN dnf -y install httpd php php-fpm php-mysqlnd mariadb-server mariadb mod_ssl openssl \
+    && dnf clean all
+
+COPY site/ /var/www/html/
+COPY init.sql /root/init.sql
+RUN mkdir -p /var/www/html/uploads && chown -R apache:apache /var/www/html
+
+# --- Certificado autofirmado para HTTPS ---
+RUN openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
+    -keyout /etc/pki/tls/private/nexora.key \
+    -out /etc/pki/tls/certs/nexora.crt \
+    -subj "/C=ES/O=Nexora Solutions/CN=web.nexora.lab"
+
+# --- Configuracion TLS DEBIL a proposito (protocolos y cifrados obsoletos) ---
+RUN printf 'Listen 443 https\n\
+SSLCipherSuite ALL:!aNULL:!eNULL\n\
+SSLProtocol all -SSLv2\n\
+SSLHonorCipherOrder off\n\
+<VirtualHost _default_:443>\n\
+    DocumentRoot /var/www/html\n\
+    ServerName web.nexora.lab\n\
+    SSLEngine on\n\
+    SSLCertificateFile /etc/pki/tls/certs/nexora.crt\n\
+    SSLCertificateKeyFile /etc/pki/tls/private/nexora.key\n\
+</VirtualHost>\n' > /etc/httpd/conf.d/ssl.conf
+
+RUN printf '#!/bin/sh\n\
+mkdir -p /run/httpd /run/php-fpm\n\
+if [ ! -d /var/lib/mysql/mysql ]; then mariadb-install-db --user=mysql --datadir=/var/lib/mysql >/dev/null 2>&1; fi\n\
+chown -R mysql:mysql /var/lib/mysql\n\
+mariadbd-safe --datadir=/var/lib/mysql &\n\
+for i in $(seq 1 30); do mysqladmin ping >/dev/null 2>&1 && break; sleep 1; done\n\
+mysql < /root/init.sql\n\
+php-fpm -D\n\
+exec httpd -DFOREGROUND\n' > /start.sh && chmod +x /start.sh
+
+EXPOSE 80 443
+CMD ["/start.sh"]
