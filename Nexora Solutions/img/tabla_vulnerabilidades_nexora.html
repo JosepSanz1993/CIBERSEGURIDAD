@@ -1,0 +1,74 @@
+<style>
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--surface-1);color:var(--text-secondary);font-weight:500;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border-strong);position:sticky;top:0}
+td{padding:7px 12px;border-bottom:0.5px solid var(--border);color:var(--text-primary)}
+tr:hover td{background:var(--surface-1)}
+.critica{background:#FCEBEB;color:#791F1F;padding:2px 8px;border-radius:4px;font-weight:500;font-size:11px;white-space:nowrap}
+.alta{background:#FAEEDA;color:#633806;padding:2px 8px;border-radius:4px;font-weight:500;font-size:11px;white-space:nowrap}
+.media{background:#E6F1FB;color:#0C447C;padding:2px 8px;border-radius:4px;font-weight:500;font-size:11px;white-space:nowrap}
+.baja{background:#EAF3DE;color:#27500A;padding:2px 8px;border-radius:4px;font-weight:500;font-size:11px;white-space:nowrap}
+.maquina{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary)}
+</style>
+<div style="overflow-x:auto">
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Vulnerabilidad</th>
+<th>Máquina</th>
+<th>Severidad</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>UB-01</td><td>SSH autenticación por contraseña habilitada</td><td class="maquina">Ubuntu Firewall</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>UB-02</td><td>Credencial débil svc_monitor/monitor123</td><td class="maquina">Ubuntu Firewall</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>UB-03</td><td>sudo NOPASSWD:ALL en svc_monitor</td><td class="maquina">Ubuntu Firewall</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>UB-04</td><td>DNS AXFR sin restricción — zona expuesta</td><td class="maquina">Ubuntu Firewall</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>UB-05</td><td>Versión BIND 9.18.39 divulgada en banner</td><td class="maquina">Ubuntu Firewall</td><td><span class="baja">Baja</span></td></tr>
+<tr><td>UB-06</td><td>Compromiso firewall → manipulación nftables</td><td class="maquina">Ubuntu Firewall</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>RK-01</td><td>Acceso anónimo SMB — enumera todos los recursos</td><td class="maquina">Rocky Linux</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>RK-02</td><td>Reutilización de credenciales LDAP→SMB</td><td class="maquina">Rocky Linux</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>RK-03</td><td>Protocolo SMB1 (NT1) habilitado</td><td class="maquina">Rocky Linux</td><td><span class="media">Media</span></td></tr>
+<tr><td>RK-04</td><td>credenciales_servicios.txt en texto claro</td><td class="maquina">Rocky Linux</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>RK-05</td><td>Clave privada SSH expuesta (claves/id_rsa)</td><td class="maquina">Rocky Linux</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>RK-06</td><td>Documento confidencial accesible</td><td class="maquina">Rocky Linux</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>AL-01</td><td>Contenedores sin segmentación interna (dmznet)</td><td class="maquina">Alpine / Docker</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>AL-02</td><td>Movimiento lateral interno DMZ via web</td><td class="maquina">Alpine / Docker</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>WB-01</td><td>SQLi en login — bypass de autenticación</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-02</td><td>Subida de ficheros sin validación</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-03</td><td>FTP anónimo → webshell → RCE</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-04</td><td>RCE como apache (uid=48)</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-05</td><td>Credenciales BD en db.php (webapp/webapp123)</td><td class="maquina">Contenedor web</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>WB-06</td><td>Volcado completo MariaDB via RCE</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-07</td><td>TLS débil — SSLv2 habilitado</td><td class="maquina">Contenedor web</td><td><span class="media">Media</span></td></tr>
+<tr><td>WB-08</td><td>Cookie de sesión sin HttpOnly</td><td class="maquina">Contenedor web</td><td><span class="media">Media</span></td></tr>
+<tr><td>WB-09</td><td>phpMyAdmin 5.2.1 expuesto sin restricción IP</td><td class="maquina">Contenedor web</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>WB-10</td><td>phpMyAdmin pma/pma123 — credencial débil</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-11</td><td>phpMyAdmin root — acceso total BD</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-12</td><td>SQL INTO OUTFILE → webshell via phpMyAdmin</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-13</td><td>WordPress instalador expuesto públicamente</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-14</td><td>WordPress Takeover por atacante externo</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-15</td><td>Plugin malicioso WordPress → RCE</td><td class="maquina">Contenedor web</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>WB-16</td><td>Honeytoken /.env accesible sin autenticación</td><td class="maquina">Contenedor web</td><td><span class="media">Media</span></td></tr>
+<tr><td>WB-17</td><td>Honeytoken /backup/ con directory listing</td><td class="maquina">Contenedor web</td><td><span class="media">Media</span></td></tr>
+<tr><td>WB-18</td><td>Honeytoken /config.php accesible</td><td class="maquina">Contenedor web</td><td><span class="media">Media</span></td></tr>
+<tr><td>FT-01</td><td>FTP anónimo con escritura en /uploads/</td><td class="maquina">Cont. ftpsmtp</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>FT-02</td><td>SMTP open relay — spoofing corporativo</td><td class="maquina">Cont. ftpsmtp</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>FT-03</td><td>VRFY habilitado — enumeración usuarios</td><td class="maquina">Cont. ftpsmtp</td><td><span class="baja">Baja</span></td></tr>
+<tr><td>FT-04</td><td>Credencial débil svc_ftp/Ftp#Nexora2024</td><td class="maquina">Cont. ftpsmtp</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>FT-05</td><td>Honeytoken /backup/ftp_credentials.txt</td><td class="maquina">Cont. ftpsmtp</td><td><span class="media">Media</span></td></tr>
+<tr><td>FT-06</td><td>Honeytoken /backup/config_backup.cfg</td><td class="maquina">Cont. ftpsmtp</td><td><span class="media">Media</span></td></tr>
+<tr><td>FT-07</td><td>Reutilización credenciales LDAP→FTP</td><td class="maquina">Cont. ftpsmtp</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>DR-01</td><td>LDAP bind anónimo sin credenciales</td><td class="maquina">Contenedor dir</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>DR-02</td><td>Contraseñas en texto claro en userPassword</td><td class="maquina">Contenedor dir</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>DR-03</td><td>LDAPS deshabilitado — tráfico sin cifrar</td><td class="maquina">Contenedor dir</td><td><span class="media">Media</span></td></tr>
+<tr><td>DR-04</td><td>SNMP community string public</td><td class="maquina">Contenedor dir</td><td><span class="media">Media</span></td></tr>
+<tr><td>DR-05</td><td>Honeytoken LDAP — admin_backup</td><td class="maquina">Contenedor dir</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>DR-06</td><td>Honeytoken LDAP — ceo</td><td class="maquina">Contenedor dir</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>DR-07</td><td>Honeytoken LDAP — svc_network con Cisco123!</td><td class="maquina">Contenedor dir</td><td><span class="critica">Crítica</span></td></tr>
+<tr><td>DR-08</td><td>Honeytoken SNMP — credenciales en sysDescr</td><td class="maquina">Contenedor dir</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>DR-09</td><td>Honeytoken SNMP — credenciales en sysContact</td><td class="maquina">Contenedor dir</td><td><span class="alta">Alta</span></td></tr>
+<tr><td>DR-10</td><td>Honeytoken SNMP — IP gestión en sysLocation</td><td class="maquina">Contenedor dir</td><td><span class="media">Media</span></td></tr>
+</tbody>
+</table>
+</div>
