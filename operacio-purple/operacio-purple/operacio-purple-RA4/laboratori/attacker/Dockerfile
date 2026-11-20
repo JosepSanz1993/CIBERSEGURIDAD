@@ -7,15 +7,13 @@ FROM debian:stable-slim
 ENV DEBIAN_FRONTEND=noninteractive
 
 # nikto és a la secció "non-free" de Debian i la imatge slim només porta "main".
-# Afegim un fitxer de fonts propi amb non-free (no depèn del format del fitxer original)
+# Afegim "contrib non-free" a les fonts que ja venen amb la imatge (sense tocar claus)
 # i ho fem al MATEIX RUN que l'apt-get perquè la memòria cau de Docker no ens enganyi.
-RUN printf '%s\n' \
-        'Types: deb' \
-        'URIs: http://deb.debian.org/debian' \
-        'Suites: stable stable-updates' \
-        'Components: non-free' \
-        'Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg' \
-        > /etc/apt/sources.list.d/non-free.sources \
+RUN if [ -f /etc/apt/sources.list.d/debian.sources ]; then \
+        sed -i -E '/^Components:/{/non-free/!s/$/ contrib non-free/}' /etc/apt/sources.list.d/debian.sources; \
+    else \
+        sed -i -E '/^deb /{/non-free/!s/$/ contrib non-free/}' /etc/apt/sources.list; \
+    fi \
     && apt-get update && apt-get install -y --no-install-recommends \
         nmap \
         hydra \
