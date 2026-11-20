@@ -97,6 +97,8 @@ services:
       - "8000:8000"              # http://localhost:8000
     env_file:
       - .env                     # configuració de l'IA (copia .env.example -> .env)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # a Linux, perquè el SOC arribi a Ollama del host
     volumes:
       - ./logs:/logs             # llegeix logs de les víctimes i escriu alertes
       - ./soc:/app               # el codi del SOC (editable sense reconstruir)
