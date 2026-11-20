@@ -1,0 +1,6 @@
+logs/web/*.log
+logs/ssh/*.log
+logs/alerts.jsonl
+loot/*
+!**/.gitkeep
+.env

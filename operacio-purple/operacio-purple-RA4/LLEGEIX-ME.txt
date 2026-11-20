@@ -1,0 +1,15 @@
+OPERACIO PURPLE TEAM amb IA i Docker - CFGS ASIX - Modul 1665 (DASP) - RA4
+Generalitat de Catalunya - Departament d Educacio - Institut Baix Camp
+
+CONTINGUT:
+  guies/Practica_alumne.pdf    -> per repartir als alumnes (Moodle)
+  guies/Guia_professor.pdf     -> solucionari + rubrica (us intern)
+  guies/*.md                   -> versions editables de les guies
+  laboratori/                  -> infraestructura Docker del lab
+
+ARRENCADA RAPIDA DEL LABORATORI:
+  cd laboratori
+  cp .env.example .env
+  docker compose up -d --build
+  sh scripts/healthcheck.sh
+  Web victima -> http://localhost:8080   SOC -> http://localhost:8000

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="5">   <!-- refresc automàtic cada 5s -->
+  <title>Purple Lab · SOC (Blue Team)</title>
+  <style>
+    :root { --bg:#0e1116; --card:#171c24; --line:#2a313c; --txt:#e6edf3; --mut:#8b949e; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--txt);
+           font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+    header { padding:16px 24px; border-bottom:1px solid var(--line);
+             display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    h1 { font-size:18px; margin:0; }
+    .pill { font-size:12px; padding:2px 10px; border-radius:999px; border:1px solid var(--line); color:var(--mut); }
+    .wrap { padding:24px; display:grid; gap:20px; grid-template-columns:1fr; max-width:1100px; margin:0 auto; }
+    .cards { display:flex; gap:12px; flex-wrap:wrap; }
+    .stat { background:var(--card); border:1px solid var(--line); border-radius:12px;
+            padding:12px 18px; min-width:110px; }
+    .stat b { font-size:26px; display:block; }
+    .alta,.critica { color:#ff7b72; } .mitjana { color:#f0b429; } .baixa { color:#58a6ff; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
+    .alert { border-left:4px solid var(--line); padding:10px 14px; margin-bottom:10px;
+             background:#11161d; border-radius:0 8px 8px 0; }
+    .alert.alta,.alert.critica { border-left-color:#ff7b72; }
+    .alert.mitjana { border-left-color:#f0b429; }
+    .alert.baixa { border-left-color:#58a6ff; }
+    .meta { font-size:12px; color:var(--mut); margin-bottom:4px; }
+    .evidence { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12px;
+                background:#0b0f14; padding:8px; border-radius:6px; overflow-x:auto; white-space:pre-wrap;
+                word-break:break-all; border:1px solid var(--line); }
+    .ai { margin-top:8px; font-size:13px; background:#0b0f14; border:1px dashed #3b6; border-radius:8px; padding:10px; }
+    .ai h4 { margin:0 0 6px; font-size:12px; color:#6fcf97; text-transform:uppercase; letter-spacing:.04em; }
+    pre { margin:0; white-space:pre-wrap; word-break:break-word; font-size:12px; }
+    .logs { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media (max-width:800px){ .logs{ grid-template-columns:1fr; } }
+    .log { font-family:ui-monospace,monospace; font-size:11px; color:var(--mut);
+           max-height:260px; overflow:auto; background:#0b0f14; padding:10px; border-radius:8px; }
+    code { color:#f0b429; }
+    .empty { color:var(--mut); font-style:italic; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛡️ Purple Lab · SOC</h1>
+    <span class="pill">Blue Team</span>
+    <span class="pill">IA: {{ provider }}</span>
+    <span class="pill">refresc automàtic 5s</span>
+  </header>
+
+  <div class="wrap">
+    <div class="cards">
+      <div class="stat"><b>{{ total }}</b>alertes</div>
+      <div class="stat alta"><b>{{ stats.alta + stats.critica }}</b>altes/crítiques</div>
+      <div class="stat mitjana"><b>{{ stats.mitjana }}</b>mitjanes</div>
+      <div class="stat baixa"><b>{{ stats.baixa }}</b>baixes</div>
+    </div>
+
+    <div class="card">
+      <h3>Alertes recents</h3>
+      {% if not alerts %}
+        <p class="empty">Encara no hi ha alertes. Fes un atac des del contenidor <code>attacker</code> i aquesta pàgina s'anirà omplint.</p>
+      {% endif %}
+      {% for a in alerts %}
+        <div class="alert {{ a.severity }}">
+          <div class="meta">{{ a.ts }} · <b>{{ a.rule }}</b> · {{ a.mitre }} · origen: {{ a.src_ip or '—' }}{% if a.count %} · {{ a.count }} esdeveniments{% endif %}</div>
+          <div>{{ a.description }}</div>
+          <div class="evidence">{{ a.evidence }}</div>
+          {% set ai = a.ai %}
+          {% if ai %}
+            <div class="ai">
+              <h4>🤖 Triatge IA ({{ ai.mode }})</h4>
+              {% if ai.mode == 'ia' %}
+                <pre><b>Severitat:</b> {{ ai.severitat }}
+<b>MITRE:</b> {{ ai.tactica_mitre }} / {{ ai.tecnica_mitre }}
+<b>Explicació:</b> {{ ai.explicacio }}
+<b>Remediació:</b> {{ ai.remediacio }}
+<b>Possible fals positiu:</b> {{ ai.fals_positiu_probable }}</pre>
+              {% elif ai.mode == 'text' %}
+                <pre>{{ ai.text }}</pre>
+              {% elif ai.mode == 'manual' %}
+                <p class="meta">Mode manual: copia aquest prompt i enganxa'l a qualsevol xatbot (Claude, ChatGPT, Gemini...).</p>
+                <pre>{{ ai.prompt }}</pre>
+              {% elif ai.mode == 'error' %}
+                <p class="meta">La IA no ha respost ({{ ai.error }}). Pots usar el prompt manualment:</p>
+                <pre>{{ ai.prompt }}</pre>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="logs">
+      <div class="card">
+        <h3>Log web (nginx)</h3>
+        <div class="log">{% for l in web %}{{ l }}
+{% else %}<span class="empty">sense trànsit encara</span>{% endfor %}</div>
+      </div>
+      <div class="card">
+        <h3>Log SSH (sshd)</h3>
+        <div class="log">{% for l in ssh %}{{ l }}
+{% else %}<span class="empty">sense intents encara</span>{% endfor %}</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
